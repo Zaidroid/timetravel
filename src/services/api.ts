@@ -1,5 +1,5 @@
-const OPENROUTER_API_KEY = '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';
-const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const GOOGLE_API_KEY = 'AIzaSyB0tPLPP1MU6TXPOD6hlxE943xoqh6s3Sc';
+const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro-exp-02-05:generateContent';
 
 export const generateNarrative = async (prompt: string) => {
   try {
