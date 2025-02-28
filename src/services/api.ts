@@ -1,4 +1,4 @@
-const GOOGLE_API_KEY = 'AIzaSyCKEBb6anXZXabriqGlGMH4Oe8SyC5fCPw';
+const GOOGLE_API_KEY = 'AIzaSyCScu4I5G9BZFeWYbku0LRkZV-Uo1gAJg0';
 const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro-exp-02-05:generateContent';
 
 export const generateNarrative = async (prompt: string) => {
