@@ -14,16 +14,24 @@ export const generateNarrative = async (prompt: string) => {
             role: 'user',
             parts: [
               {
-                text: 'You are a historical narrative generator specializing in Palestinian history and tourism. Create engaging, accurate, and respectful narratives about life and travel in Palestine across different time periods.'
-              },
-              {
-                text: prompt
+                text: `You are a historical narrative generator specializing in Palestinian history and tourism. Create concise, engaging, accurate, and respectful narratives about life and travel in Palestine across different time periods.
+
+IMPORTANT INSTRUCTIONS:
+1. Start directly with the historical narrative - do NOT include any explanatory text about what you're doing
+2. Keep responses brief (150-250 words maximum) and highly specific to the time period and location mentioned
+3. Focus on daily life, cultural practices, architectural features, and historical context
+4. Include sensory details that transport the reader to that time and place
+5. Avoid generalizations - provide specific, factual details wherever possible
+6. Do not include any meta-commentary about your response or how it was generated
+
+${prompt}`
               }
             ]
           }
         ],
         generationConfig: {
           temperature: 0.7,
+          maxOutputTokens: 500,
         },
       }),
     });
@@ -50,7 +58,7 @@ export const generateTravelItinerary = async (city: string, date: string, langua
        - Weather-appropriate activities
        - Estimated costs in ILS and USD
        - Cultural etiquette tips
-       Please format the response as a structured JSON object.`
+       Please format the response as a structured JSON object without any explanatory text.`
     : `قم بإنشاء جدول رحلة مفصل لمدينة ${city}، فلسطين في ${date} يتضمن:
        - جدول زمني ساعة بساعة
        - المعالم السياحية الشهيرة والخفية
@@ -59,7 +67,7 @@ export const generateTravelItinerary = async (city: string, date: string, langua
        - أنشطة مناسبة للطقس
        - التكاليف التقديرية بالشيكل والدولار
        - نصائح عن آداب وتقاليد المجتمع
-       يرجى تنسيق الرد كـ JSON منظم.`;
+       يرجى تنسيق الرد كـ JSON منظم وبدون أي نص توضيحي.`;
 
   try {
     const response = await generateNarrative(prompt);
