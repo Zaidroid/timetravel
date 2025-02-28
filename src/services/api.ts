@@ -3,27 +3,28 @@ const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-
 
 export const generateNarrative = async (prompt: string) => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}?key=${GOOGLE_API_KEY}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'Palestine Time Travel Simulator'
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.0-pro-exp-02-05:free',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a historical narrative generator specializing in Palestinian history and tourism. Create engaging, accurate, and respectful narratives about life and travel in Palestine across different time periods.'
-          },
+        contents: [
           {
             role: 'user',
-            content: prompt
+            parts: [
+              {
+                text: 'You are a historical narrative generator specializing in Palestinian history and tourism. Create engaging, accurate, and respectful narratives about life and travel in Palestine across different time periods.'
+              },
+              {
+                text: prompt
+              }
+            ]
           }
         ],
-        temperature: 0.7,
+        generationConfig: {
+          temperature: 0.7,
+        },
       }),
     });
 
@@ -32,7 +33,7 @@ export const generateNarrative = async (prompt: string) => {
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.candidates[0].content.parts[0].text;
   } catch (error) {
     console.error('Error generating content:', error);
     throw error;
